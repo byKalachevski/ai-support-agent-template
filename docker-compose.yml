@@ -1,0 +1,21 @@
+services:
+  support-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-support-agent-template
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8011:8011"
+    volumes:
+      - ./kb:/app/kb:ro
+      - ./runs:/app/runs
+      - ./logs:/app/logs
+      - ./cache:/app/cache
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8011/health', timeout=5).read()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
