@@ -1,36 +1,44 @@
 # AI Support Agent Template
 
-A reusable AI support-agent service for building product support automation with a Markdown-based knowledge base, retrieval pipeline, safety policies, session memory and optional backend worker integration.
+Production-ready AI support-agent template built with FastAPI, Markdown knowledge bases, retrieval pipelines, session memory and optional backend worker integration.
 
-This repository is designed as a public template. Replace the example knowledge-base structure with your own product documentation, FAQ, policies and support workflows.
+---
 
-## What this project demonstrates
+## Features
 
-- FastAPI service structure
-- AI support-agent orchestration
-- Markdown knowledge-base loading
-- Retrieval and scoring pipeline
-- Prompt management
-- Intent classification
-- Safety and grounding policies
-- Session memory and summarization
-- Optional WebSocket worker integration
-- Dockerized local deployment
+* FastAPI backend architecture
+* AI support-agent orchestration
+* Markdown knowledge-base support
+* Retrieval and context scoring pipeline
+* Prompt management
+* Intent classification
+* Safety and grounding policies
+* Session memory and summarization
+* Optional WebSocket worker integration
+* Dockerized deployment
 
-## Repository structure
+---
+
+## Repository Structure
 
 ```text
 app/
-  routes/          FastAPI routes for chat, jobs, health and websocket endpoints
-  schemas/         Pydantic contracts for chat, replies, retrieval and sessions
-  services/        Agent orchestration, LLM client, KB loading, retrieval and policies
+  routes/          API routes
+  schemas/         Pydantic models and contracts
+  services/        Agent orchestration, retrieval and policies
   utils/           Shared helpers
 
 kb/
-  README.md        Knowledge-base template overview
-  01-routing/      Intent routing and classification guidance
-  02-product-core/ Product description, glossary and core concepts
-  ...              Additional optional support KB sections
+  README.md        KB structure overview
+  01-routing/      Intent routing rules
+  02-product-core/ Product documentation
+  03-onboarding/   Onboarding guides
+  04-auth/         Authentication flows
+  05-billing/      Billing and subscriptions
+  06-workflows/    Automation workflows
+  07-security/     Security and safety rules
+  08-support/      Support and escalation rules
+  09-troubleshooting/ Common issues and fixes
 
 Dockerfile
 docker-compose.yml
@@ -38,27 +46,42 @@ docker-compose.yml
 requirements.txt
 ```
 
-## Knowledge base
+---
 
-The `kb/` folder is intentionally generic. It contains only README files that explain how users can structure their own documentation.
+## Knowledge Base
 
-You can keep the included structure, modify it, rename folders or replace it entirely. The agent only needs readable documentation files that can be loaded and indexed.
+The `kb/` directory contains a reusable template structure for organizing support documentation.
+
+You can:
+
+* rename folders;
+* remove sections;
+* add your own documentation;
+* reorganize the hierarchy completely.
 
 Recommended content:
 
-- product documentation
-- FAQ
-- onboarding guides
-- troubleshooting guides
-- billing and subscription rules
-- security policies
-- escalation rules
-- response templates
-- integration guides
+* onboarding guides;
+* FAQ;
+* troubleshooting flows;
+* billing rules;
+* integration guides;
+* response templates;
+* escalation policies.
 
-Do not store secrets, API keys, access tokens, customer data or private credentials in the KB.
+Do not store:
 
-## Quick start with Docker
+* API keys;
+* tokens;
+* passwords;
+* customer data;
+* private credentials.
+
+---
+
+## Quick Start
+
+### Docker
 
 ```bash
 cp .env.example .env
@@ -71,59 +94,79 @@ Health check:
 curl http://127.0.0.1:8011/health
 ```
 
-## Local development
+---
+
+## Local Development
+
+### Linux / macOS
 
 ```bash
 python -m venv .venv
+
 source .venv/bin/activate
+
 pip install -r requirements.txt
+
 cp .env.example .env
+
 python -m uvicorn app.main:app --host 127.0.0.1 --port 8011
 ```
 
-On Windows PowerShell:
+### Windows PowerShell
 
 ```powershell
 py -m venv .venv
+
 .\.venv\Scripts\Activate.ps1
+
 pip install -r requirements.txt
+
 Copy-Item .env.example .env -Force
+
 python -m uvicorn app.main:app --host 127.0.0.1 --port 8011
 ```
 
-## Environment variables
+---
 
-Use `.env.example` as a safe template. Real `.env` files must not be committed.
+## Environment Variables
+
+Use `.env.example` as a safe template.
 
 Main variables:
 
-- `LLM_PROVIDER` — provider label used for logs and diagnostics
-- `LLM_BASE_URL` — OpenAI-compatible API base URL
-- `LLM_API_KEY` — LLM provider API key
-- `LLM_MODEL` — model name used by the agent
-- `KB_DIR` — knowledge-base directory
-- `WORKER_ENABLED` — enables optional backend worker mode
-- `BACKEND_API_BASE_URL` — optional backend API URL
-- `BACKEND_API_TOKEN` — optional backend worker token
+| Variable               | Description                    |
+| ---------------------- | ------------------------------ |
+| `LLM_PROVIDER`         | Provider label                 |
+| `LLM_BASE_URL`         | OpenAI-compatible API endpoint |
+| `LLM_API_KEY`          | Provider API key               |
+| `LLM_MODEL`            | Model name                     |
+| `KB_DIR`               | Knowledge-base directory       |
+| `WORKER_ENABLED`       | Enables worker mode            |
+| `BACKEND_API_BASE_URL` | Optional backend API           |
+| `BACKEND_API_TOKEN`    | Optional backend token         |
 
-## Customization workflow
+---
 
-1. Copy `.env.example` to `.env`.
-2. Replace the `kb/` README templates with your own support documentation.
-3. Adjust prompts in `app/services/llm/prompts.py`.
-4. Adjust intent classification in `app/services/intents/classifier.py`.
-5. Add your backend integration only if worker mode is needed.
-6. Run locally with Docker or Uvicorn.
+## Customization
 
-## Security notes
+1. Copy `.env.example` → `.env`
+2. Configure your provider credentials
+3. Replace KB templates with your own documentation
+4. Adjust prompts and intent routing if needed
+5. Run locally with Docker or Uvicorn
 
-Before publishing or deploying:
+---
 
-- do not commit `.env`;
-- do not commit production compose files with real paths or domains;
-- do not commit API keys, tokens or private URLs;
-- do not include customer data in the knowledge base;
-- rotate any key that was ever committed by mistake.
+## Security Notes
+
+Before deployment:
+
+* do not commit `.env`;
+* do not commit API keys or tokens;
+* do not include private customer data;
+* review prompts and KB before production usage.
+
+---
 
 ## License
 
