@@ -28,8 +28,6 @@ This repository is designed as a reusable public template. Replace the knowledge
 - FastAPI
 - Pydantic
 - Uvicorn
-- Markdown-based knowledge base
-- WebSocket
 - Docker
 - Docker Compose
 
